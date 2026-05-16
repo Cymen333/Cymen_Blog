@@ -1,17 +1,119 @@
 ---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MusicPlayer from '../components/MusicPlayer.astro';
 
+const posts = [
+  { 
+    title: "Bayer有序抖动与早期像素艺术", 
+    date: "2024-04-08", 
+    desc: "探讨复古像素艺术中的抖动算法，非常迷人的老技术...", 
+    thumbnail: "/images/post1-cover.jpg", 
+    url: "/post-demo" 
+  },
+  { 
+    title: "早期像素艺术", 
+    date: "2024-04-08", 
+    desc: "为什么这三种颜色的搭配永远不会过时？探究色彩心理学与设计美学。", 
+    thumbnail: "/images/post1-cover.jpg", 
+    url: "/post" 
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Cymen的博客">
+  
+  <!-- 第一屏幕：全屏大图和文字 -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <!-- <h1>The brain is wider than the sky.</h1>
+      <p>向下滚动探索</p> -->
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </header>
+
+  <!-- 第二屏幕：主内容区 -->
+  <main class="main-container">
+    
+    <!-- 左侧：头像与音乐 -->
+    <aside class="sidebar no-scrollbar">
+      <div class="card author-card">
+        <img class="avatar" src="/images/avatar.jpg" alt="头像" />
+        <h2>Cymen</h2>
+        <p class="bio">I think, therefore I am.</p>
+      </div>
+
+      <!-- 我们封装好的音乐播放器组件 -->
+      <MusicPlayer />
+    </aside>
+
+    <!-- 右侧：文章卡片列表 -->
+    <div class="post-list">
+      {posts.map((post) => (
+        <article class="card post-card">
+          <div class="post-card-content">
+            <img class="post-thumbnail" src={post.thumbnail} alt="配图" />
+            <div class="post-text">
+              <h2 class="post-title"><a href={post.url}>{post.title}</a></h2>
+              <span class="post-date">{post.date}</span>
+              <p class="post-desc">{post.desc}</p>
+              <a href={post.url} class="read-more">Read More...</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </main>
+</BaseLayout>
+
+<style>
+  /* 1. 顶部全屏区样式 */
+  .hero-section { height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .hero-content h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);}
+  .scroll-arrow { font-size: 2rem; margin-top: 30px; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } }
+
+  /* 2. 核心布局修复：恢复左右双栏网格 (Grid) */
+  .main-container { 
+    max-width: 1100px; 
+    margin: 0 auto 100px auto; 
+    padding: 0 20px; 
+    display: grid; 
+    grid-template-columns: 300px 1fr; /* 左边300像素，右边占满剩余空间 */
+    gap: 30px; 
+  }
+  
+  /* 左侧边栏固定与滚动 */
+  .sidebar { 
+    position: sticky; 
+    top: 80px; 
+    max-height: calc(100vh - 100px); 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+  }
+  
+  /* 3. 卡片内部样式 */
+  .author-card { text-align: center; }
+  .avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--accent-red); margin-bottom: 15px; object-fit: cover;}
+  .bio { font-size: 0.9rem; color: var(--text-muted); margin: 15px 0; font-style: italic;}
+  
+  .post-list { display: flex; flex-direction: column; gap: 25px; }
+  .post-card { padding: 0; overflow: hidden; } 
+  .post-card-content { display: flex; flex-direction: column; }
+  .post-thumbnail { width: 100%; height: 200px; object-fit: cover; } 
+  .post-text { padding: 20px; position: relative; padding-bottom: 50px; }
+  .post-title { font-size: 1.5rem; margin-bottom: 10px; }
+  .post-date { font-size: 0.85rem; color: var(--accent-red); }
+  .post-desc { margin-top: 15px; line-height: 1.6; color: #ddd;}
+  .read-more { position: absolute; bottom: 20px; right: 20px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 15px; font-size: 0.9rem;}
+  .read-more:hover { background: var(--accent-red); color: white;}
+
+  /* 4. 手机端自适应（小屏幕变成单栏） */
+  @media (max-width: 768px) {
+    .main-container { grid-template-columns: 1fr; }
+    .sidebar { position: relative; top: 0; max-height: none; }
+  }
+</style>

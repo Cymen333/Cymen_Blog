@@ -1,0 +1,63 @@
+---
+// src/components/MusicPlayer.astro
+---
+<div class="card music-card">
+  <div class="music-info">
+    <img id="disc-img" class="disc-img" src="/images/disc.png" alt="唱片" transition:persist />
+    <div class="track">
+      <h4 id="song-name">你的本地音乐</h4>
+      <div class="progress-bar" id="progress-bg">
+        <div id="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <audio id="my-audio" src="/music/bgm.mp3" loop transition:persist></audio>
+    <button id="play-btn" class="play-btn">▶</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const audio = document.getElementById('my-audio') as HTMLAudioElement;
+    const playBtn = document.getElementById('play-btn');
+    const discImg = document.getElementById('disc-img');
+    const progressFill = document.getElementById('progress-fill');
+
+    if (audio && !audio.paused) {
+      playBtn!.innerText = '⏸';
+      discImg?.classList.add('playing');
+    }
+
+    playBtn?.addEventListener('click', () => {
+      if(audio.paused) {
+        audio.play();
+        playBtn.innerText = '⏸';
+        discImg?.classList.add('playing');
+      } else {
+        audio.pause();
+        playBtn.innerText = '▶';
+        discImg?.classList.remove('playing');
+      }
+    });
+
+    audio?.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        if (progressFill) progressFill.style.width = percent + '%';
+      }
+    });
+  });
+</script>
+
+<style>
+  .music-card { width: 100%; }
+  .music-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
+  .track { flex: 1; }
+  .track h4 { font-size: 0.9rem; margin-bottom: 8px;}
+  .progress-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; cursor: pointer;}
+  #progress-fill { width: 0%; height: 100%; background: var(--accent-red); transition: width 0.1s linear;}
+  .controls { display: flex; justify-content: center; }
+  .play-btn { background: var(--accent-red); border: none; font-size: 1.2rem; cursor: pointer; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s;}
+  .play-btn:hover { transform: scale(1.1); }
+</style>
