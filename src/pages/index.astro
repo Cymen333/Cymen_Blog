@@ -6,20 +6,34 @@ import MusicPlayer from '../components/MusicPlayer.astro';
 const base = import.meta.env.BASE_URL; // 获取基础路径
 
 const posts = [
-  { 
+  {
+    title: "导航", 
+    date: "2026-05-05", 
+    desc: "按照你的需求，指引你的方向。", 
+    thumbnail: `${base}images/post-cover.jpg`,  // 加上 base
+    url: `${base}/Other/guide`                      // 加上 base
+  },
+  {
     title: "Bayer有序抖动与早期像素艺术", 
     date: "2024-04-08", 
     desc: "探讨复古像素艺术中的抖动算法，非常迷人的老技术...", 
-    thumbnail: `${base}images/post1-cover.jpg`,  // 加上 base
+    thumbnail: `${base}images/post-cover.jpg`,  // 加上 base
     url: `${base}post-demo`                      // 加上 base
   },
   { 
     title: "红黑灰配色的艺术", 
     date: "2024-03-25", 
     desc: "为什么这三种颜色的搭配永远不会过时？探究色彩心理学与设计美学。", 
-    thumbnail: `${base}images/post1-cover.jpg`, 
+    thumbnail: `${base}images/post-cover.jpg`, 
     url: `${base}post`
   },
+  { 
+    title: "markdown语法测试", 
+    date: "2026-05-08", 
+    desc: "本文章旨在测试MarkDown的显示效果，以作为参考。", 
+    thumbnail: `${base}images/post-cover.jpg`, 
+    url: `${base}Other/markdown`
+  }
 ];
 ---
 

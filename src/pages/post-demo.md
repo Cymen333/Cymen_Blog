@@ -2,8 +2,7 @@
 layout: ../layouts/PostLayout.astro
 title: "Bayer有序抖动与早期像素艺术"
 date: "2024-04-08"
-description: "探讨复古像素艺术中的抖动算法..."
-cover: "/images/post1-cover.jpg"
+cover: "/images/post-cover.jpg"
 categories: "计算机图形学" 
 mark: 1
 ---

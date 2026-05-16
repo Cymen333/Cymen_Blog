@@ -1,10 +1,9 @@
 ---
-layout: ../layouts/PostLayout.astro
+layout: ../../layouts/PostLayout.astro
 title: About
 date: "2026-05-05"
-description: "正如你所见，正如你所知"
-cover: "/images/post1-cover.jpg"
-categories: "关于" 
+cover: "/images/post-cover.jpg"
+categories: "About Blog & Me" 
 mark: 1
 ---
 ![图片加载失败](/public/images/about_me.png "24岁是学生")

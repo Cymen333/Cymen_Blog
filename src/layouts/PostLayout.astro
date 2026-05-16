@@ -16,7 +16,7 @@ if (bgImage && bgImage.startsWith('/')) {
 }
 
 // 获取所有文章用于 Wiki 目录
-const mdFiles = import.meta.glob('../pages/*.md', { eager: true });
+const mdFiles = import.meta.glob('../pages/**/*.md', { eager: true });
 const allPosts = Object.values(mdFiles);
 
 const currentCategory = frontmatter.categories;
@@ -104,4 +104,15 @@ const wikiList = allPosts
   }
   .markdown-body :global(pre) { padding: 15px; border-radius: 8px; overflow-x: auto; margin: 15px 0; background: rgba(0,0,0,0.8); }
   .markdown-body :global(code) { color: var(--accent-red); font-family: monospace; }
+  .markdown-body :global(a) {
+    color: var(--accent-red);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent-red); /* 加一个虚线下划线 */
+    transition: all 0.2s;
+  }
+
+  .markdown-body :global(a:hover) {
+    background-color: rgba(239, 68, 68, 0.1); /* 悬停时淡淡的红底 */
+    border-bottom-style: solid; /* 悬停变实线 */
+  }
 </style>
