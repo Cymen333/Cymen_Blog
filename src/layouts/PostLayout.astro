@@ -1,56 +1,64 @@
 ---
 // src/layouts/PostLayout.astro
 import BaseLayout from './BaseLayout.astro';
-import MusicPlayer from '../components/MusicPlayer.astro'; // 引入音乐播放器
+import MusicPlayer from '../components/MusicPlayer.astro'; 
 
 const { frontmatter } = Astro.props;
 
-// 读取所有 Markdown 文件
+// 1. 获取基础路径
+const base = import.meta.env.BASE_URL;
+
+// 2. 自动修正封面图路径：如果封面图是本地绝对路径（以 / 开头），就自动加上 base 前缀
+let bgImage = frontmatter.cover;
+if (bgImage && bgImage.startsWith('/')) {
+  // 去掉开头的 '/'，拼接到 base 后面，防止出现双斜杠
+  bgImage = base + bgImage.slice(1);
+}
+
+// 获取所有文章用于 Wiki 目录
 const mdFiles = import.meta.glob('../pages/*.md', { eager: true });
 const allPosts = Object.values(mdFiles);
 
-// 【核心逻辑】：只保留同类别的文章，并按 mark 排序
 const currentCategory = frontmatter.categories;
 
 const wikiList = allPosts
-  .filter((post: any) => post.frontmatter.categories === currentCategory) // 1. 过滤：只留类别相同的
+  .filter((post: any) => post.frontmatter.categories === currentCategory)
   .sort((a: any, b: any) => {
-    // 2. 排序：按照 mark 数字从小到大排列。如果没写 mark，默认放到最后 (999)
     const markA = a.frontmatter.mark || 999;
     const markB = b.frontmatter.mark || 999;
     return markA - markB;
   });
 ---
 
-<BaseLayout title={frontmatter.title} bgImage={frontmatter.cover}>
+<!-- 3. 将修正后的 bgImage 传给 BaseLayout -->
+<BaseLayout title={frontmatter.title} bgImage={bgImage}>
   <div class="post-page-container">
     
-    <!-- 左侧区域：Wiki目录 + 音乐播放器 -->
     <div class="sidebar-wrapper">
       <aside class="wiki-sidebar card no-scrollbar">
         <h3>[{currentCategory}] 目录</h3>
         <ul class="wiki-list">
-          {wikiList.map((post: any) => (
-            <li>
-              <a href={post.url} class={post.url === Astro.url.pathname ? 'active' : ''}>
-                <!-- 显示 mark 序号和标题 -->
-                <span class="mark-num">{post.frontmatter.mark ? `${post.frontmatter.mark}.` : ''}</span>
-                {post.frontmatter.title}
-              </a>
-            </li>
-          ))}
+          {wikiList.map((post: any) => {
+            // 确保目录的链接也自动加上 base（如果 Astro 没自动加的话）
+            const postUrl = post.url.startsWith(base) ? post.url : base + post.url.slice(1);
+            return (
+              <li>
+                <a href={postUrl} class={Astro.url.pathname === postUrl || Astro.url.pathname === postUrl + '/' ? 'active' : ''}>
+                  <span class="mark-num">{post.frontmatter.mark ? `${post.frontmatter.mark}.` : ''}</span>
+                  {post.frontmatter.title}
+                </a>
+              </li>
+            )
+          })}
         </ul>
       </aside>
 
-      <!-- 文章页也能看到音乐播放器了！ -->
       <div class="post-music">
         <MusicPlayer />
       </div>
     </div>
 
-    <!-- 右侧：文章正文 -->
     <article class="post-content card">
-      <!-- 正文内容保持不变 -->
       <header class="post-header">
         <h1>{frontmatter.title}</h1>
         <div class="post-meta">发布于: {frontmatter.date}</div>
@@ -68,8 +76,6 @@ const wikiList = allPosts
     max-width: 1200px; margin: 100px auto 50px auto; padding: 0 20px;
     display: grid; grid-template-columns: 280px 1fr; gap: 30px; align-items: start;
   }
-
-  /* 左侧栏包裹层 */
   .sidebar-wrapper {
     position: sticky; top: 80px; display: flex; flex-direction: column; gap: 20px;
     max-height: calc(100vh - 100px);
@@ -77,7 +83,6 @@ const wikiList = allPosts
   .wiki-sidebar { overflow-y: auto; padding: 20px; }
   .post-music { flex-shrink: 0; }
 
-  /* 目录样式 */
   .wiki-sidebar h3 { margin-bottom: 15px; font-size: 1.1rem; color: var(--accent-red); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
   .wiki-list { list-style: none; }
   .wiki-list li { margin-bottom: 5px; }
@@ -86,7 +91,17 @@ const wikiList = allPosts
   .wiki-list a.active { background: var(--accent-red); color: white; font-weight: bold; }
   .mark-num { color: inherit; opacity: 0.7; }
 
-  /* 右侧正文样式保持不变... */
   .post-content { padding: 40px; }
-  /* ... */
+  .post-header { margin-bottom: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; }
+  .post-header h1 { font-size: 2.2rem; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);}
+  .post-meta { color: var(--accent-red); font-size: 0.9rem; }
+
+  .markdown-body :global(h2) { margin: 30px 0 15px 0; color: var(--accent-red); }
+  .markdown-body :global(p) { margin-bottom: 15px; line-height: 1.8; font-size: 1.05rem; }
+  .markdown-body :global(blockquote) {
+    border-left: 4px solid var(--accent-red); padding: 10px 15px; margin: 15px 0;
+    background: rgba(0, 0, 0, 0.3); color: #ccc; font-style: italic;
+  }
+  .markdown-body :global(pre) { padding: 15px; border-radius: 8px; overflow-x: auto; margin: 15px 0; background: rgba(0,0,0,0.8); }
+  .markdown-body :global(code) { color: var(--accent-red); font-family: monospace; }
 </style>
