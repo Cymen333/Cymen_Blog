@@ -7,18 +7,25 @@ const base = import.meta.env.BASE_URL; // 获取基础路径
 
 const posts = [
   {
-    title: "导航", 
-    date: "2026-05-05", 
-    desc: "按照你的需求，指引你的方向。", 
-    thumbnail: `${base}images/post-cover.jpg`,  // 加上 base
-    url: `${base}/Other/guide`                      // 加上 base
+    title: "导航【置顶】",
+    date: "2026-05-05",
+    desc: "按照你的需求，指引你的方向。",
+    thumbnail: `${base}images/guide-cover.png`,
+    url: `${base}/Other/guide`
   },
   {
-    title: "Bayer有序抖动与早期像素艺术", 
-    date: "2024-04-08", 
+    title: "关于C/C++",
+    date: "2026-05-17",
+    desc: "讲讲关于C/C++我的看法。", 
+    thumbnail: `${base}images/study-cover.png`,
+    url: `${base}C&C++/aboutC&C++`
+  },
+  {
+    title: "Bayer有序抖动与早期像素艺术",
+    date: "2024-04-08",
     desc: "探讨复古像素艺术中的抖动算法，非常迷人的老技术...", 
-    thumbnail: `${base}images/post-cover.jpg`,  // 加上 base
-    url: `${base}post-demo`                      // 加上 base
+    thumbnail: `${base}images/post-cover.jpg`,
+    url: `${base}post-demo`
   },
   { 
     title: "红黑灰配色的艺术", 
@@ -28,10 +35,10 @@ const posts = [
     url: `${base}post`
   },
   { 
-    title: "markdown语法测试", 
-    date: "2026-05-08", 
-    desc: "本文章旨在测试MarkDown的显示效果，以作为参考。", 
-    thumbnail: `${base}images/post-cover.jpg`, 
+    title: "markdown语法测试",
+    date: "2026-05-08",
+    desc: "本文章旨在测试MarkDown的显示效果，以作为参考。",
+    thumbnail: `${base}images/post-cover.jpg`,
     url: `${base}Other/markdown`
   }
 ];
@@ -47,7 +54,7 @@ const posts = [
     <aside class="sidebar no-scrollbar">
       <div class="card author-card">
         <!-- 头像加上 base -->
-        <img class="avatar" src={`${base}images/avatar.jpg`} alt="头像" />
+        <img class="avatar" src={`${base}images/avatar.png`} alt="头像" />
         <h2>Cymen</h2>
         <p class="bio">I learn, therefore I am.</p>
       </div>
@@ -89,13 +96,57 @@ const posts = [
   
   .post-list { display: flex; flex-direction: column; gap: 25px; }
   .post-card { padding: 0; overflow: hidden; } 
-  .post-card-content { display: flex; flex-direction: column; }
-  .post-thumbnail { width: 100%; height: 200px; object-fit: cover; } 
-  .post-text { padding: 20px; position: relative; padding-bottom: 50px; }
-  .post-title { font-size: 1.5rem; margin-bottom: 10px; }
+  
+  /* 将卡片内容设置为横向 Flex 布局 */
+  .post-card-content { 
+    display: flex; 
+    flex-direction: row; /* 横向排列 */
+    align-items: stretch; /* 让图片和文字区域等高 */
+  }
+  
+  /* 左侧图片设置固定宽度 */
+  .post-thumbnail { 
+    width: 250px; /* 图片宽度，你可以根据喜好调整 */
+    min-height: 200px; /* 保证有一个最低高度 */
+    object-fit: cover; 
+    flex-shrink: 0; /* 防止图片被文字挤压变形 */
+    border-right: 1px solid var(--border-color); /* 在图文之间加一条暗线分隔 */
+  } 
+  
+  /* 右侧文字区域占据剩余的所有空间 */
+  .post-text { 
+    flex: 1; 
+    padding: 25px 30px; /* 增加一点内边距让文字更舒展 */
+    position: relative; 
+    padding-bottom: 60px; /* 给右下角的按钮留出空间 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 让文字在垂直方向上居中 */
+  }
+  
+  .post-title { font-size: 1.4rem; margin-bottom: 8px; }
   .post-date { font-size: 0.85rem; color: var(--accent-red); }
   .post-desc { margin-top: 15px; line-height: 1.6; color: #ddd;}
-  .read-more { position: absolute; bottom: 20px; right: 20px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 15px; font-size: 0.9rem;}
+  
+  .read-more { 
+    position: absolute; 
+    bottom: 20px; right: 20px; 
+    background: rgba(255,255,255,0.1); 
+    padding: 5px 15px; 
+    border-radius: 15px; 
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
   .read-more:hover { background: var(--accent-red); color: white;}
-  @media (max-width: 768px) { .main-container { grid-template-columns: 1fr; } .sidebar { position: relative; top: 0; max-height: none; } }
+
+  /* --- 手机端响应式适配 --- */
+  @media (max-width: 768px) { 
+    .main-container { grid-template-columns: 1fr; } 
+    .sidebar { position: relative; top: 0; max-height: none; } 
+    
+    /* 在小屏幕下，恢复为“上图下文” */
+    .post-card-content { flex-direction: column; }
+    .post-thumbnail { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid var(--border-color); }
+    .post-text { padding: 20px; padding-bottom: 50px; }
+  }
 </style>

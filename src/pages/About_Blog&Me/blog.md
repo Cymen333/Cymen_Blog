@@ -1,9 +1,61 @@
 ---
 layout: ../../layouts/PostLayout.astro
-title: "Blog简介"
+title: "Blog创建流程"
 date: "2026-05-16"
 cover: "/images/post-cover.jpg"
 categories: "About Blog & Me" 
 mark: 2
 ---
-这里是Cymen_Blog，如果你不幸点开了这个Blog，请允许我猜测一下你的需求，以方便
+这里选择以 Astro 作为静态网站生成器。
+## 1.在终端输入（确保你安装了 Node.js）：
+```Bash
+npm create astro@latest
+```
+
+## 2.进入交互式安装过程，请按以下建议选择：
+Where should we create your new project?
+输入文件夹名字，比如 my-blog。
+
+How would you like to setup your new project?
+选择 Empty（推荐，因为你想写自己的主题，从空白开始最干净）。
+或者选择 Use blog template（如果你想参考别人是怎么写博客的）。
+
+Install dependencies? (推荐)
+选择 Yes（这会自动安装必要的运行代码）。
+
+Do you plan to write TypeScript?
+如果你不熟悉 TypeScript，选择 No（选 JavaScript 即可）；如果你想让代码更严谨，选 Yes。
+
+Initialize a new git repository?
+选择 Yes（方便你后续提交到 GitHub）。
+
+## 3.进入工作室，然后启动 Astro 的开发服务器（Development Server）
+```Bash
+cd my-blog
+npm run dev
+```
+npm run dev没效果就用npx run dev。
+
+## 4.打开http://localhost:4321
+即可看到写有Astro的空白网页。
+
+## 5. 推荐工具 (编辑器)
+为了写代码舒服，强烈建议安装：
+VS Code (Visual Studio Code)
+
+插件： 在 VS Code 插件市场搜索并安装 "Astro" 官方插件（它能给 .astro 文件提供语法高亮和代码提示）。
+
+## 6. 认识项目结构，创作主题
+在 VS Code 中打开你的 my-blog 文件夹，你会看到：
+
+src/：你的核心代码都在这里。
+
+src/pages/：最重要的文件夹。里面的 index.astro 就是你的首页。Astro 的路由是基于文件的，你在 pages 里创建一个 about.astro，访问 localhost:4321/about 就能看到它。
+
+public/：放图片、头像、字体等不需要经过处理的原始文件。
+
+package.json：列出了项目依赖。
+
+astro.config.mjs：Astro 的设置文件。
+
+然后请教AI来写前端代码就行了。

@@ -58,7 +58,7 @@ cout << "Hello World" << endl;
 ## 8.链接与图片
 返回 [首页](/my-blog-Astro/)
 
-![图片加载失败](/public/images/avatar.jpg "头像")
+![图片加载失败](/public/images/avatar.png "头像")
 <!-- **行内链接**：[Home](/ "Homo")
 **行内链接**：[My-New-Post](/2026/05/05/My-New-Post/ "My-New-Post")
 **引用式链接**：
