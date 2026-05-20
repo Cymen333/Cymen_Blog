@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: 关于C/C++
 date: "2026-05-17"
-cover: "/Cymen_Blog/images/study-cover.png"
+cover: "/images/study-cover.png"
 categories: "C/C++"
 mark: 1
 ---

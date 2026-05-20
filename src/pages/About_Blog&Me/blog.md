@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: "Blog创建流程"
 date: "2026-05-16"
-cover: "/Cymen_Blog/images/post-cover.jpg"
+cover: "/images/post-cover.jpg"
 categories: "About Blog & Me" 
 mark: 2
 ---

@@ -2,11 +2,11 @@
 layout: ../../layouts/PostLayout.astro
 title: About Me
 date: "2026-05-05"
-cover: "/Cymen_Blog/images/post-cover.jpg"
+cover: "/images/post-cover.jpg"
 categories: "About Blog & Me" 
 mark: 1
 ---
-![图片加载失败](/public/images/about_me.png "24岁是学生")
+![图片加载失败](/Cymen_Blog/images/about_me.png "24岁是学生")
 
 我是Cymen。
 
