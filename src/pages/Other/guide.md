@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: 导航
 date: "2026-05-08"
-cover: "/images/guide-cover.png"
+cover: "/Cymen_Blog/images/guide-cover.png"
 categories: "Other"
 mark: 1
 ---

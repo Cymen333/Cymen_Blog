@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: "使用git把blog上传到github"
 date: "2026-05-16"
-cover: "/images/post-cover.jpg"
+cover: "/Cymen_Blog/images/post-cover.jpg"
 categories: "About Blog & Me" 
 mark: 3
 ---

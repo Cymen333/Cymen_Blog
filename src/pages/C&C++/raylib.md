@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: Raylib库
 date: "2026-05-20"
-cover: "/images/study-cover.png"
+cover: "/Cymen_Blog/images/study-cover.png"
 categories: "C/C++"
 mark: 2
 ---
