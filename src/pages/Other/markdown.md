@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: markdown语法测试
 date: "2026-05-08"
-cover: "/images/post-cover.jpg"
+cover: "/images/post-cover.png"
 categories: "Other"
 mark: 2
 ---

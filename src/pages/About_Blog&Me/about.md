@@ -2,7 +2,7 @@
 layout: ../../layouts/PostLayout.astro
 title: About Me
 date: "2026-05-05"
-cover: "/images/post-cover.jpg"
+cover: "/images/post-cover.png"
 categories: "About Blog & Me" 
 mark: 1
 ---
